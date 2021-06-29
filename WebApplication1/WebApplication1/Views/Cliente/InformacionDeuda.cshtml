@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+@model IEnumerable<WebApplication1.Models.deuda>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InformacionCompras</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.id)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Articulo_id_Fk)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Cantidad)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Cliente_Id_Fk)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.fecha)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.deuda1)</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem => item.id)</td>
+                        <td>@Html.DisplayFor(modelitem => item.Articulo_id_Fk)</td>
+                        <td>@Html.DisplayFor(modelitem => item.Cantidad)</td>
+                        <td>@Html.DisplayFor(modelitem => item.Cliente_Id_Fk)</td>
+                        <td>@Html.DisplayFor(modelitem => item.fecha)</td>
+                        <td id="total">@Html.DisplayFor(modelitem => item.deuda1)</td>
+                       @if (ViewBag.idc == 1) {
+                        <td>@Html.ActionLink("eliminar", "eliminar", new { id = item.id })</td>
+                       }
+                    </tr>
+                }
+
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><p id="todo"></p></td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/Pruebas2.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApplication1.Models.clientes>
+@{
+    ViewBag.Title = "Informacion";
+    Layout = null;
+}
+
+<div>
+    @foreach (var item in Model)
+    {
+        <label for="User" class="form-label">Nombre</label>
+        @Html.TextBoxFor(modelitem => item.Nombre, new
+   { disabled = "disabled", @readonly = "readonly" })<br />
+        <label for="User" class="form-label">Apellido</label>
+        @Html.TextBoxFor(modelitem => item.Apellido, new
+   { disabled = "disabled", @readonly = "readonly" })<br />
+        <label for="User" class="form-label">Usuario</label>
+        @Html.TextBoxFor(modelitem => item.NombreDeUsuario, new
+   { disabled = "disabled", @readonly = "readonly" })<br />
+        <label for="User" class="form-label">Password</label>
+        @Html.TextBoxFor(modelitem => item.Pass, new
+   { disabled = "disabled", @readonly = "readonly" })<br />
+
+   <div>
+      
+       @Html.ActionLink("Deuda", "InformacionDeuda", new { id = item.Id })
+       @Html.ActionLink("Compras", "InformacionCompras", new { id = item.Id })
+    </div>
+       
+
+    }
+</div>

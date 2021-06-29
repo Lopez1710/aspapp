@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fcd33f60732046c6b982ea9ae93eea13" Name="Diagram1">
+        <EntityTypeShape EntityType="controlventaModel.articulos" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlventaModel.clientes" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlventaModel.deuda" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlventaModel.Rol" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlventaModel.venta" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlventaModel.Compras" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlventaModel.deudas" Width="1.5" PointX="2.75" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="controlventaModel.FK__deuda__Articulo___30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="controlventaModel.FK__venta__Articulo___2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="controlventaModel.FK__clientes__Rol_Fk__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="controlventaModel.FK__deuda__Cliente_I__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="controlventaModel.FK__venta__Cliente_I__2C3393D0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApplication1.Models.articulos>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NuevoCredito</title>
+</head>
+<body>
+    <div id="formulario">
+        <form action="/Cliente/NuevoCredito" method="post">
+
+            <input type="text" name="" />
+            <select name="articulo" id="articulo">
+                <option selected data-precio="0">articulo</option>
+                @foreach (var ls in Model)
+                {
+                    <option value='@ls.Id' data-precio='@ls.Precio'>@ls.Articulo</option>
+                }
+            </select><br />
+            <label for="precio" class="form-label">precio</label>
+            <input id="precio" value="0" @(new
+   { disabled = "disabled", @readonly = "readonly" })/><br />
+            <label for="cantidad" class="form-label"  >cantidad</label>
+            <input id="cantidad" value="0" name="cantidad"/><br />
+            <label for="total" class="form-label" >total</label>
+            <input  type="text" id="total" value="0" @(new
+   { disabled = "disabled", @readonly = "readonly" })/>
+            <input type="submit" value="crear" />
+        </form>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/Pruebas.js"></script>
+</body>
+</html>

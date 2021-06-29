@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="controlventaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="articulos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Articulo" Type="varchar" MaxLength="100" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" />
+          <Property Name="NombreDeUsuario" Type="varchar" MaxLength="50" />
+          <Property Name="Pass" Type="varchar" MaxLength="50" />
+          <Property Name="Rol_Fk" Type="int" />
+        </EntityType>
+        <EntityType Name="deuda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="deuda" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Cliente_Id_Fk" Type="int" />
+          <Property Name="Articulo_id_Fk" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Cliente_Id_Fk" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Articulo_id_Fk" Type="int" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'controlventa.dbo.Compras' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Compras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Articulo" Type="varchar" MaxLength="100" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'controlventa.dbo.deudas' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="deudas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Articulo" Type="varchar" MaxLength="100" />
+          <Property Name="Precio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="Fecha" Type="date" />
+          <Property Name="deuda" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <Association Name="FK__clientes__Rol_Fk__276EDEB3">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="Rol_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__deuda__Articulo___30F848ED">
+          <End Role="articulos" Type="Self.articulos" Multiplicity="0..1" />
+          <End Role="deuda" Type="Self.deuda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deuda">
+              <PropertyRef Name="Articulo_id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__deuda__Cliente_I__300424B4">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="deuda" Type="Self.deuda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deuda">
+              <PropertyRef Name="Cliente_Id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__Articulo___2D27B809">
+          <End Role="articulos" Type="Self.articulos" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="Articulo_id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__Cliente_I__2C3393D0">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="Cliente_Id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="controlventaModelStoreContainer">
+          <EntitySet Name="articulos" EntityType="Self.articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="deuda" EntityType="Self.deuda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="venta" EntityType="Self.venta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compras" EntityType="Self.Compras" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Compras].[Id] AS [Id], 
+    [Compras].[Articulo] AS [Articulo], 
+    [Compras].[Precio] AS [Precio], 
+    [Compras].[Cantidad] AS [Cantidad], 
+    [Compras].[Fecha] AS [Fecha], 
+    [Compras].[Total] AS [Total]
+    FROM [dbo].[Compras] AS [Compras]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="deudas" EntityType="Self.deudas" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [deudas].[Id] AS [Id], 
+    [deudas].[Articulo] AS [Articulo], 
+    [deudas].[Precio] AS [Precio], 
+    [deudas].[Cantidad] AS [Cantidad], 
+    [deudas].[Fecha] AS [Fecha], 
+    [deudas].[deuda] AS [deuda]
+    FROM [dbo].[deudas] AS [deudas]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__clientes__Rol_Fk__276EDEB3" Association="Self.FK__clientes__Rol_Fk__276EDEB3">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__deuda__Articulo___30F848ED" Association="Self.FK__deuda__Articulo___30F848ED">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="deuda" EntitySet="deuda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__deuda__Cliente_I__300424B4" Association="Self.FK__deuda__Cliente_I__300424B4">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="deuda" EntitySet="deuda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__Articulo___2D27B809" Association="Self.FK__venta__Articulo___2D27B809">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__Cliente_I__2C3393D0" Association="Self.FK__venta__Cliente_I__2C3393D0">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="controlventaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="articulos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Articulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="deuda" Relationship="Self.FK__deuda__Articulo___30F848ED" FromRole="articulos" ToRole="deuda" />
+          <NavigationProperty Name="venta" Relationship="Self.FK__venta__Articulo___2D27B809" FromRole="articulos" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreDeUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rol_Fk" Type="Int32" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK__clientes__Rol_Fk__276EDEB3" FromRole="clientes" ToRole="Rol" />
+          <NavigationProperty Name="deuda" Relationship="Self.FK__deuda__Cliente_I__300424B4" FromRole="clientes" ToRole="deuda" />
+          <NavigationProperty Name="venta" Relationship="Self.FK__venta__Cliente_I__2C3393D0" FromRole="clientes" ToRole="venta" />
+        </EntityType>
+        <EntityType Name="deuda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="deuda1" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Cliente_Id_Fk" Type="Int32" />
+          <Property Name="Articulo_id_Fk" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <NavigationProperty Name="articulos" Relationship="Self.FK__deuda__Articulo___30F848ED" FromRole="deuda" ToRole="articulos" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK__deuda__Cliente_I__300424B4" FromRole="deuda" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK__clientes__Rol_Fk__276EDEB3" FromRole="Rol" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="venta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Cliente_Id_Fk" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Articulo_id_Fk" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="articulos" Relationship="Self.FK__venta__Articulo___2D27B809" FromRole="venta" ToRole="articulos" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK__venta__Cliente_I__2C3393D0" FromRole="venta" ToRole="clientes" />
+        </EntityType>
+        <EntityType Name="Compras">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Articulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="deudas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Articulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="deuda" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <Association Name="FK__deuda__Articulo___30F848ED">
+          <End Role="articulos" Type="Self.articulos" Multiplicity="0..1" />
+          <End Role="deuda" Type="Self.deuda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deuda">
+              <PropertyRef Name="Articulo_id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__Articulo___2D27B809">
+          <End Role="articulos" Type="Self.articulos" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="articulos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="Articulo_id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__clientes__Rol_Fk__276EDEB3">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="Rol_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__deuda__Cliente_I__300424B4">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="deuda" Type="Self.deuda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="deuda">
+              <PropertyRef Name="Cliente_Id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__venta__Cliente_I__2C3393D0">
+          <End Role="clientes" Type="Self.clientes" Multiplicity="0..1" />
+          <End Role="venta" Type="Self.venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="venta">
+              <PropertyRef Name="Cliente_Id_Fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="controlEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="articulos" EntityType="Self.articulos" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="deuda" EntityType="Self.deuda" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="venta" EntityType="Self.venta" />
+          <EntitySet Name="Compras" EntityType="Self.Compras" />
+          <EntitySet Name="deudas" EntityType="Self.deudas" />
+          <AssociationSet Name="FK__deuda__Articulo___30F848ED" Association="Self.FK__deuda__Articulo___30F848ED">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="deuda" EntitySet="deuda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__Articulo___2D27B809" Association="Self.FK__venta__Articulo___2D27B809">
+            <End Role="articulos" EntitySet="articulos" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__clientes__Rol_Fk__276EDEB3" Association="Self.FK__clientes__Rol_Fk__276EDEB3">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__deuda__Cliente_I__300424B4" Association="Self.FK__deuda__Cliente_I__300424B4">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="deuda" EntitySet="deuda" />
+          </AssociationSet>
+          <AssociationSet Name="FK__venta__Cliente_I__2C3393D0" Association="Self.FK__venta__Cliente_I__2C3393D0">
+            <End Role="clientes" EntitySet="clientes" />
+            <End Role="venta" EntitySet="venta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="controlventaModelStoreContainer" CdmEntityContainer="controlEntities">
+          <EntitySetMapping Name="articulos">
+            <EntityTypeMapping TypeName="controlventaModel.articulos">
+              <MappingFragment StoreEntitySet="articulos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="controlventaModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="NombreDeUsuario" ColumnName="NombreDeUsuario" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="Rol_Fk" ColumnName="Rol_Fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="deuda">
+            <EntityTypeMapping TypeName="controlventaModel.deuda">
+              <MappingFragment StoreEntitySet="deuda">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="deuda1" ColumnName="deuda" />
+                <ScalarProperty Name="Cliente_Id_Fk" ColumnName="Cliente_Id_Fk" />
+                <ScalarProperty Name="Articulo_id_Fk" ColumnName="Articulo_id_Fk" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="controlventaModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="venta">
+            <EntityTypeMapping TypeName="controlventaModel.venta">
+              <MappingFragment StoreEntitySet="venta">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Cliente_Id_Fk" ColumnName="Cliente_Id_Fk" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Articulo_id_Fk" ColumnName="Articulo_id_Fk" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compras">
+            <EntityTypeMapping TypeName="controlventaModel.Compras">
+              <MappingFragment StoreEntitySet="Compras">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="deudas">
+            <EntityTypeMapping TypeName="controlventaModel.deudas">
+              <MappingFragment StoreEntitySet="deudas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="deuda" ColumnName="deuda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

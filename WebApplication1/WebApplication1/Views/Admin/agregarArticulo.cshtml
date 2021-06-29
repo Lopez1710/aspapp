@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>agregarArticulo</title>
+</head>
+<body>
+    <div>
+        <form action="/Admin/agregarArticulo" method="post">
+            <label>Articulo: <input name="art" required></label>
+            <label>Precio: <input type="text" name="precio" required /></label>
+            <input value="Agregar" type="submit" />
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApplication1.Models.articulos>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>listaArticulos</title>
+</head>
+<body>
+    <div>
+        <h4>articulos</h4>
+        <table>
+            <thead>
+                <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Articulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+    </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => item.Articulo)</td>
+                    <td>@Html.DisplayFor(model => item.Precio)</td>
+                    <td>@Html.ActionLink("eliminar", "eliminar", new { id = item.Id })</td>
+                </tr>
+            }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                <td></td>
+                <td>@Html.ActionLink("Agregar articulo","agregarArticulo")</td>
+                <td></td>
+                    </tr>
+            </tfoot>
+            </table>
+    
+       
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿.form-label {
+    color: white !important;
+    font-family: sans-serif !important;
+}
+
+.contenedor {
+    background-color: rgba(0, 0, 0, .4);
+    max-width: 650px;
+    margin: auto;
+    padding: 5px 35px;
+    margin-top: 100px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+}
+
+.btn {
+    margin-left: 250px !important;
+    margin-top: 40px !important;
+}
+
+.mb-3 {
+    margin-top: 30px !important;
+}
